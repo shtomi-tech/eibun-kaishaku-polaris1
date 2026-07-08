@@ -1,0 +1,315 @@
+{
+  "meta": {
+    "id": "polaris1-mvp",
+    "label": "ポラリス1 導入セット",
+    "source": "先生入力用テンプレート",
+    "version": 1,
+    "note": "授業内の導入用教材。ポラリスのテーマ・狙いを参考にしつつ、英文・和訳・解説はオリジナルで作成する。授業後、生徒は宿題としてポラリス本編の同じテーマを学習する。"
+  },
+  "items": [
+    {
+      "id": "polaris1_theme01_point01",
+      "theme": "THEME 1",
+      "themeTitle": "名詞句",
+      "pointNo": 1,
+      "pointTitle": "主語になる to ...",
+      "sentence": "To study a little every day is important.",
+      "pattern": "SVC",
+      "root": {
+        "chunks": [
+          { "text": "To study a little every day", "role": "S", "translation": "毎日少しずつ勉強することは" },
+          { "text": "is", "role": "V", "translation": "である" },
+          { "text": "important", "role": "C", "translation": "重要だ" }
+        ]
+      },
+      "explanation": {
+        "analysis": "文頭の to do が大きな名詞句となり、文全体の主語として働く。",
+        "guidance": "to do を見たら、まず品詞の働きを確認する。ここでは動詞 is の前に置かれているので主語になる。",
+        "translationExample": "毎日少しずつ勉強することは重要だ。",
+        "vocab": [
+          { "term": "a little", "meaning": "少し" },
+          { "term": "every day", "meaning": "毎日" }
+        ],
+        "checkpoints": [
+          "to do が名詞句として主語になることを確認する",
+          "SVC の C は主語の性質を説明すると確認する"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme01_point02",
+      "theme": "THEME 1",
+      "themeTitle": "名詞句",
+      "pointNo": 2,
+      "pointTitle": "Cになる名詞的用法の to ...",
+      "sentence": "My first goal is to understand the main idea.",
+      "pattern": "SVC",
+      "root": {
+        "chunks": [
+          { "text": "My first goal", "role": "S", "translation": "私の最初の目標は" },
+          { "text": "is", "role": "V", "translation": "である" },
+          { "text": "to understand the main idea", "role": "C", "translation": "主旨を理解することだ" }
+        ]
+      },
+      "explanation": {
+        "analysis": "be 動詞の後ろに置かれた to do は補語になり、主語の中身を説明する。",
+        "guidance": "S is to do は「Sは〜することだ」と読む。予定を表す用法と混同しないよう、主語の意味を確認する。",
+        "translationExample": "私の最初の目標は主旨を理解することだ。",
+        "vocab": [
+          { "term": "goal", "meaning": "目標" },
+          { "term": "main idea", "meaning": "主旨" }
+        ],
+        "checkpoints": [
+          "be 動詞の後ろの to do が C になることを確認する",
+          "C は主語の内容を言い換える働きだと説明できる"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme01_point03",
+      "theme": "THEME 1",
+      "themeTitle": "名詞句",
+      "pointNo": 3,
+      "pointTitle": "形式主語 it と真主語の to ...",
+      "sentence": "It is useful to review your mistakes after class.",
+      "pattern": "SVC",
+      "root": {
+        "chunks": [
+          { "text": "It", "role": "仮S", "translation": "それは" },
+          { "text": "is", "role": "V", "translation": "である" },
+          { "text": "useful", "role": "C", "translation": "役に立つ" },
+          { "text": "to review your mistakes after class", "role": "真S", "translation": "授業後に自分のミスを復習することは" }
+        ]
+      },
+      "explanation": {
+        "analysis": "It は形式主語で、後ろの to do が本当の主語にあたる。まず It is C まで軽く処理し、後ろで中身を回収する。",
+        "guidance": "It is C to do は「〜することはCだ」と訳す。前から読むときは「それはCだ、つまり〜することは」と補う。",
+        "translationExample": "授業後に自分のミスを復習することは役に立つ。",
+        "vocab": [
+          { "term": "useful", "meaning": "役に立つ" },
+          { "term": "review", "meaning": "復習する" }
+        ],
+        "checkpoints": [
+          "It を形式主語として処理できる",
+          "後ろの to do が真主語になることを説明できる"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme02_point01",
+      "theme": "THEME 2",
+      "themeTitle": "名詞句（動名詞）",
+      "pointNo": 1,
+      "pointTitle": "Sになる動名詞",
+      "sentence": "Reading short articles every morning improves your vocabulary.",
+      "pattern": "SVO",
+      "root": {
+        "chunks": [
+          { "text": "Reading short articles every morning", "role": "S", "translation": "毎朝短い記事を読むことは" },
+          { "text": "improves", "role": "V", "translation": "向上させる" },
+          { "text": "your vocabulary", "role": "O", "translation": "あなたの語彙力を" }
+        ]
+      },
+      "explanation": {
+        "analysis": "文頭の Reading short articles every morning は、動詞 improves の前にある大きな名詞のかたまりで、文全体の主語になっている。-ing の形でも、名詞として働けば S になる。",
+        "guidance": "文頭の -ing を見たら、すぐに分詞構文と決めない。後ろに動詞が来て、-ing のかたまり全体がその動詞の主語になっていれば、動名詞として読む。",
+        "translationExample": "毎朝短い記事を読むことは、語彙力を向上させる。",
+        "vocab": [
+          { "term": "article", "meaning": "記事" },
+          { "term": "improve", "meaning": "向上させる" },
+          { "term": "vocabulary", "meaning": "語彙、語彙力" }
+        ],
+        "checkpoints": [
+          "文頭の -ing が動名詞として S になることを確認する",
+          "分詞構文ではなく、後ろの動詞の主語になっていると判断する"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme02_point02",
+      "theme": "THEME 2",
+      "themeTitle": "名詞句（動名詞）",
+      "pointNo": 2,
+      "pointTitle": "Oになる動名詞",
+      "sentence": "Rina finished organizing the classroom after school.",
+      "pattern": "SVO",
+      "root": {
+        "chunks": [
+          { "text": "Rina", "role": "S", "translation": "リナは" },
+          { "text": "finished", "role": "V", "translation": "終えた" },
+          { "text": "organizing the classroom", "role": "O", "translation": "教室を整理することを" },
+          { "text": "after school", "role": "M", "translation": "放課後に" }
+        ]
+      },
+      "explanation": {
+        "analysis": "finished の後ろに置かれた organizing the classroom は、動詞 finished の目的語になっている。-ing 形でも、名詞のかたまりとして働けば O になる。",
+        "guidance": "動詞の直後に -ing が来たら、まず「動詞の目的語になっていないか」を確認する。finish は後ろに動名詞を取りやすい動詞なので、finished organizing ... を「整理することを終えた」と読む。",
+        "translationExample": "リナは放課後に教室を整理し終えた。",
+        "vocab": [
+          { "term": "finish -ing", "meaning": "〜し終える" },
+          { "term": "organize", "meaning": "整理する" },
+          { "term": "after school", "meaning": "放課後に" }
+        ],
+        "checkpoints": [
+          "-ing の形が動名詞として O になることを確認する",
+          "finish の後ろでは to do ではなく -ing を使うことを確認する"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme02_point03",
+      "theme": "THEME 2",
+      "themeTitle": "名詞句（動名詞）",
+      "pointNo": 3,
+      "pointTitle": "Cになる動名詞",
+      "sentence": "Ken's weekly task is checking the club's equipment.",
+      "pattern": "SVC",
+      "root": {
+        "chunks": [
+          { "text": "Ken's weekly task", "role": "S", "translation": "ケンの毎週の仕事は" },
+          { "text": "is", "role": "V", "translation": "である" },
+          { "text": "checking the club's equipment", "role": "C", "translation": "部活の備品を点検することだ" }
+        ]
+      },
+      "explanation": {
+        "analysis": "be 動詞の後ろにある checking the club's equipment は、主語 Ken's weekly task の内容を説明する補語になっている。進行形ではなく、名詞の働きをする動名詞として読む。",
+        "guidance": "is -ing を見たら、すぐに進行形と決めず、主語の意味を確認する。主語が task, job, hobby, goal などなら、後ろの -ing は「〜すること」という C になりやすい。",
+        "translationExample": "ケンの毎週の仕事は、部活の備品を点検することだ。",
+        "vocab": [
+          { "term": "weekly", "meaning": "毎週の" },
+          { "term": "task", "meaning": "仕事、任務" },
+          { "term": "equipment", "meaning": "備品、設備" }
+        ],
+        "checkpoints": [
+          "be -ing が常に進行形とは限らないことを確認する",
+          "動名詞が SVC の C になることを確認する"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme03_point01",
+      "theme": "THEME 3",
+      "themeTitle": "名詞句（疑問詞 to 〜）",
+      "pointNo": 1,
+      "pointTitle": "Oになる疑問詞 to 〜",
+      "sentence": "The club members discussed which poster to use for the school festival.",
+      "pattern": "SVO",
+      "root": {
+        "chunks": [
+          { "text": "The club members", "role": "S", "translation": "部員たちは" },
+          { "text": "discussed", "role": "V", "translation": "話し合った" },
+          { "text": "which poster to use for the school festival", "role": "O", "translation": "文化祭にどのポスターを使うべきかを" }
+        ]
+      },
+      "explanation": {
+        "analysis": "which poster to use for the school festival は、疑問詞 which と to use がまとまって名詞句になり、discussed の目的語になっている。",
+        "guidance": "疑問詞 + to do は「何を〜すべきか」「どれを〜すべきか」のように訳す。直前の動詞の O になっていることが多いので、まず動詞との関係を確認する。",
+        "translationExample": "部員たちは、文化祭にどのポスターを使うべきかを話し合った。",
+        "vocab": [
+          { "term": "discuss", "meaning": "話し合う" },
+          { "term": "poster", "meaning": "ポスター" },
+          { "term": "school festival", "meaning": "文化祭" }
+        ],
+        "checkpoints": [
+          "疑問詞 + to do が名詞句になることを確認する",
+          "which poster to use ... が discussed の O になっていると判断する",
+          "疑問詞の後ろに名詞が続く形にも注意する"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme04_point01",
+      "theme": "THEME 4",
+      "themeTitle": "名詞節（従属接続詞）",
+      "pointNo": 1,
+      "pointTitle": "Sになる whether",
+      "sentence": "Whether the new library will open this year remains uncertain.",
+      "pattern": "SVC",
+      "root": {
+        "chunks": [
+          { "text": "Whether the new library will open this year", "role": "S", "translation": "新しい図書館が今年開館するかどうかは" },
+          { "text": "remains", "role": "V", "translation": "ままである" },
+          { "text": "uncertain", "role": "C", "translation": "不確かだ" }
+        ]
+      },
+      "explanation": {
+        "analysis": "Whether the new library will open this year は「〜かどうか」という名詞節になり、動詞 remains の主語として働いている。",
+        "guidance": "文頭の Whether SV は「〜かどうか」と読み、かたまり全体で S になることがある。まず remains まで見つけて、どこまでが主語かを大きく取る。",
+        "translationExample": "新しい図書館が今年開館するかどうかは、まだ不確かだ。",
+        "vocab": [
+          { "term": "library", "meaning": "図書館" },
+          { "term": "remain", "meaning": "〜のままである" },
+          { "term": "uncertain", "meaning": "不確かな" }
+        ],
+        "checkpoints": [
+          "whether節が名詞節として S になることを確認する",
+          "Whether SV remains C の形を SVC と判断する",
+          "whether は「〜かどうか」と訳す"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme04_point02",
+      "theme": "THEME 4",
+      "themeTitle": "名詞節（従属接続詞）",
+      "pointNo": 2,
+      "pointTitle": "Oになる if",
+      "sentence": "Maya asked me if I could join the online meeting.",
+      "pattern": "SVOO",
+      "root": {
+        "chunks": [
+          { "text": "Maya", "role": "S", "translation": "マヤは" },
+          { "text": "asked", "role": "V", "translation": "尋ねた" },
+          { "text": "me", "role": "O", "translation": "私に" },
+          { "text": "if I could join the online meeting", "role": "O", "translation": "私がオンライン会議に参加できるかどうかを" }
+        ]
+      },
+      "explanation": {
+        "analysis": "if I could join the online meeting は「参加できるかどうか」という名詞節で、asked の目的語になっている。",
+        "guidance": "ask の後ろに if SV が来たら、条件の「もし」ではなく「〜かどうか」と読む。ここでは asked me O の形で、if節全体が聞いた内容を表す O になる。",
+        "translationExample": "マヤは、私がオンライン会議に参加できるかどうかを私に尋ねた。",
+        "vocab": [
+          { "term": "ask", "meaning": "尋ねる" },
+          { "term": "join", "meaning": "参加する" },
+          { "term": "online meeting", "meaning": "オンライン会議" }
+        ],
+        "checkpoints": [
+          "if節が名詞節として O になることを確認する",
+          "名詞節の if は「〜かどうか」と訳す",
+          "ask 人 if SV の形を見抜く"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme04_point03",
+      "theme": "THEME 4",
+      "themeTitle": "名詞節（従属接続詞）",
+      "pointNo": 3,
+      "pointTitle": "Cになる that",
+      "sentence": "The problem is that nobody checked the final report.",
+      "pattern": "SVC",
+      "root": {
+        "chunks": [
+          { "text": "The problem", "role": "S", "translation": "問題は" },
+          { "text": "is", "role": "V", "translation": "である" },
+          { "text": "that nobody checked the final report", "role": "C", "translation": "誰も最終報告書を確認していなかったことだ" }
+        ]
+      },
+      "explanation": {
+        "analysis": "that nobody checked the final report は「誰も最終報告書を確認していなかったこと」という名詞節で、主語 The problem の中身を説明する C になっている。",
+        "guidance": "S is that SV は「Sは〜ということだ」と読む。be動詞の後ろに that節が来たときは、主語の内容を言い換える C になっていないか確認する。",
+        "translationExample": "問題は、誰も最終報告書を確認していなかったことだ。",
+        "vocab": [
+          { "term": "problem", "meaning": "問題" },
+          { "term": "nobody", "meaning": "誰も〜ない" },
+          { "term": "final report", "meaning": "最終報告書" }
+        ],
+        "checkpoints": [
+          "that節が名詞節として C になることを確認する",
+          "S is that SV の形を SVC と判断する",
+          "that節は「〜ということ」と訳せる"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "datasets": [
+    {
+      "id": "polaris1-mvp",
+      "label": "ポラリス1 導入セット",
+      "url": "data/polaris1.json"
+    }
+  ]
+}
