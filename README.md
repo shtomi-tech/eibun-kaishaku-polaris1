@@ -2,6 +2,8 @@
 
 ローカル使用向けの静的HTMLアプリです。
 
+公開版: https://shtomi-tech.github.io/eibun-kaishaku-polaris1/
+
 ## 起動
 
 ```powershell
