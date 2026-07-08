@@ -567,10 +567,14 @@ function renderExplanation(item) {
 }
 
 function renderTeacherChunks(item) {
+  return renderChunkGrid(teacherChunks(item));
+}
+
+function renderChunkGrid(chunks) {
   return el("div", { class: "teacherChunks" },
-    ...teacherChunks(item).map((chunk) => el("div", { class: "teacherChunk" },
+    ...chunks.map((chunk) => el("div", { class: "teacherChunk" },
       el("span", {}, chunk.text),
-      el("span", { class: "role" }, chunk.role),
+      el("span", { class: "role" }, chunk.role || "-"),
       el("span", {}, chunk.translation || "")
     ))
   );
@@ -622,14 +626,10 @@ function renderCompare(item) {
 }
 
 function compareBox(title, attempt) {
-  return el("div", { class: "noteBox" },
+  return el("div", { class: "noteBox full" },
     el("h3", {}, title),
     el("p", { class: "smallcap" }, `Pattern: ${patternLabel(attempt.pattern)}`),
-    el("ul", { class: "compareList" },
-      ...(attempt.chunks || []).map((chunk) => el("li", {},
-        `${chunk.text} / ${chunk.role || "-"} / ${chunk.translation || ""}`
-      ))
-    )
+    renderChunkGrid(attempt.chunks || [])
   );
 }
 
