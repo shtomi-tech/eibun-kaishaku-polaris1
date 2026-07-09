@@ -10,6 +10,12 @@ const PATTERN_LABELS = {
   SVOC: "第5文型 SVOC",
   special: "その他・特殊構文",
 };
+const STEPS = [
+  ["first", "1 自分で解く"],
+  ["compare", "2 答え合わせ"],
+  ["input", "3 解説を読む"],
+];
+const STEP_LABELS = Object.fromEntries(STEPS);
 const STORE_PREFIX = "polaris_reading_mvp_v1";
 const DEFAULT_STUDENT = "default";
 
@@ -210,12 +216,6 @@ function bindShell() {
     state.editorJson = JSON.stringify(state.dataset, null, 2);
     render();
   });
-  $("#resetBtn").addEventListener("click", () => {
-    if (!confirm("現在の生徒の進捗をリセットしますか？")) return;
-    state.progress = defaultProgress();
-    saveProgress();
-    render();
-  });
 }
 
 function render() {
@@ -231,6 +231,7 @@ function renderLearn() {
   const view = $("#learnView");
   view.innerHTML = "";
   const item = currentItem();
+  view.appendChild(renderStartCta());
   view.appendChild(renderControls());
   view.appendChild(el("div", { class: "shell" },
     el("aside", {}, renderSummary(), renderItemList()),
@@ -238,17 +239,53 @@ function renderLearn() {
   ));
 }
 
-function renderControls() {
-  const datasetSelect = el("select", {
-    onchange: async (event) => {
-      await loadDataset(event.target.value);
-      render();
-    },
-  }, ...state.manifest.datasets.map((dataset) => el("option", {
-    value: dataset.id,
-    selected: dataset.id === state.datasetId ? "selected" : null,
-  }, dataset.label)));
+function recommendedTarget() {
+  const items = state.dataset?.items || [];
+  if (!items.length) return null;
+  const lastId = state.progress.lastItemId;
+  if (lastId && !state.progress.completedIds.includes(lastId)) {
+    const lastItem = items.find((i) => i.id === lastId);
+    if (lastItem) return { item: lastItem, step: normalizeStep(answerFor(lastId).lastStep), kind: "resume" };
+  }
+  const next = items.find((i) => !state.progress.completedIds.includes(i.id));
+  if (next) return { item: next, step: normalizeStep(answerFor(next.id).lastStep), kind: "next" };
+  const reviewId = state.progress.reviewIds[0];
+  const reviewItem = reviewId ? items.find((i) => i.id === reviewId) : null;
+  if (reviewItem) return { item: reviewItem, step: "first", kind: "review" };
+  return { item: items[0], step: "first", kind: "done" };
+}
 
+function renderStartCta() {
+  const target = recommendedTarget();
+  if (!target) return el("section", { class: "panel ctaPanel" }, el("p", {}, "教材データがありません。"));
+  if (target.kind === "done") {
+    return el("section", { class: "panel ctaPanel" },
+      el("p", { class: "label" }, "すべて完了"),
+      el("h2", {}, "全問完了しました"),
+      el("p", { class: "hint" }, "復習したい問題を下のリストから選んでください。")
+    );
+  }
+  const eyebrow = target.kind === "resume" ? "前回の続き" : target.kind === "review" ? "復習" : "はじめに";
+  const title = `${target.kind === "resume" ? "続きから始める" : target.kind === "review" ? "復習から始める" : "最初の問題を始める"}：${target.item.theme} ${target.item.pointNo}. ${target.item.pointTitle}`;
+  return el("section", { class: "panel ctaPanel" },
+    el("p", { class: "label" }, eyebrow),
+    el("button", {
+      class: "primary cta",
+      type: "button",
+      onclick: () => {
+        state.selectedId = target.item.id;
+        state.step = target.step;
+        answerFor(target.item.id).lastStep = target.step;
+        state.progress.lastItemId = target.item.id;
+        saveProgress();
+        render();
+      },
+    }, title),
+    el("p", { class: "hint" }, `${STEP_LABELS[target.step]} から再開します`)
+  );
+}
+
+function renderControls() {
   const studentInput = el("input", {
     value: state.studentName,
     placeholder: "未入力なら default",
@@ -260,26 +297,22 @@ function renderControls() {
     onchange: () => render(),
   });
 
-  return el("section", { class: "panel controls" },
-    field("教材", datasetSelect),
-    field("生徒名", studentInput),
-    field("現在のステップ", el("select", {
-      value: state.step,
-      onchange: (event) => {
-        state.step = event.target.value;
-        const item = currentItem();
-        if (item) {
-          answerFor(item.id).lastStep = state.step;
-          saveProgress();
-        }
+  const fields = [field("生徒名", studentInput)];
+
+  if (state.manifest.datasets.length > 1) {
+    const datasetSelect = el("select", {
+      onchange: async (event) => {
+        await loadDataset(event.target.value);
         render();
       },
-    },
-      el("option", { value: "first", selected: state.step === "first" ? "selected" : null }, "Step 1 解釈"),
-      el("option", { value: "compare", selected: state.step === "compare" ? "selected" : null }, "Step 2 比較"),
-      el("option", { value: "input", selected: state.step === "input" ? "selected" : null }, "Step 3 解説")
-    ))
-  );
+    }, ...state.manifest.datasets.map((dataset) => el("option", {
+      value: dataset.id,
+      selected: dataset.id === state.datasetId ? "selected" : null,
+    }, dataset.label)));
+    fields.unshift(field("教材", datasetSelect));
+  }
+
+  return el("section", { class: "panel controls" }, ...fields);
 }
 
 function field(label, control) {
@@ -303,26 +336,38 @@ function stat(label, value) {
 
 function renderItemList() {
   const items = state.dataset?.items || [];
+  const recommendedId = recommendedTarget()?.item?.id;
+  const groups = [];
+  for (const item of items) {
+    const last = groups[groups.length - 1];
+    if (last && last.theme === item.theme) last.items.push(item);
+    else groups.push({ theme: item.theme, themeTitle: item.themeTitle, items: [item] });
+  }
   return el("section", { class: "panel itemList" },
-    ...items.map((item) => {
-      const answer = answerFor(item.id);
-      const done = state.progress.completedIds.includes(item.id);
-      const review = state.progress.reviewIds.includes(item.id);
-      return el("button", {
-        class: `itemButton ${item.id === state.selectedId ? "active" : ""} ${done ? "done" : ""} ${review ? "review" : ""}`,
-        type: "button",
-        onclick: () => {
-          state.selectedId = item.id;
-          state.step = normalizeStep(answer.lastStep);
-          state.progress.lastItemId = item.id;
-          saveProgress();
-          render();
+    ...groups.flatMap((group) => [
+      el("p", { class: "itemGroupHead" }, `${group.theme} ${group.themeTitle || ""}`),
+      ...group.items.map((item) => {
+        const answer = answerFor(item.id);
+        const done = state.progress.completedIds.includes(item.id);
+        const review = state.progress.reviewIds.includes(item.id);
+        const recommended = item.id === recommendedId;
+        return el("button", {
+          class: `itemButton ${item.id === state.selectedId ? "active" : ""} ${done ? "done" : ""} ${review ? "review" : ""}`,
+          type: "button",
+          onclick: () => {
+            state.selectedId = item.id;
+            state.step = normalizeStep(answer.lastStep);
+            state.progress.lastItemId = item.id;
+            saveProgress();
+            render();
+          },
         },
-      },
-      `${item.theme} ${item.pointNo}. ${item.pointTitle}`,
-      el("small", {}, `${item.themeTitle || ""} / ${answer.updatedAt ? "学習中" : "未学習"}`)
-      );
-    })
+        recommended ? el("span", { class: "recommendedBadge" }, "▶ 次はこれ") : null,
+        `${item.pointNo}. ${item.pointTitle}`,
+        el("small", {}, done ? "完了" : review ? "復習対象" : answer.updatedAt ? "学習中" : "未学習")
+        );
+      }),
+    ])
   );
 }
 
@@ -350,13 +395,8 @@ function renderLessonHead(item) {
 }
 
 function renderStepNav(item) {
-  const steps = [
-    ["first", "1 解釈"],
-    ["compare", "2 比較"],
-    ["input", "3 解説"],
-  ];
   return el("div", { class: "stepNav" },
-    ...steps.map(([id, label]) => el("button", {
+    ...STEPS.map(([id, label]) => el("button", {
       class: id === state.step ? "active" : "ghost",
       type: "button",
       onclick: () => {
@@ -400,7 +440,7 @@ function renderAttempt(item, phase, title) {
           updateAttempt(item.id, phase, latest);
           render();
         },
-      }, "区切りから表を作る")
+      }, "区切りごとに S/V/O… を割り当てる")
     ),
     renderStudentChunks(item, attempt, phase),
     renderPatternField(item, attempt, phase),
@@ -431,7 +471,7 @@ function renderNextAction(item, answer, attempt, phase) {
         render();
       },
     }, "比較へ進む"),
-    ready ? null : el("span", { class: "hint" }, "Roleと文型を入力すると進めます")
+    ready ? null : el("span", { class: "hint" }, "文の要素と文型を入力すると進めます")
   );
 }
 
@@ -455,7 +495,7 @@ function renderPatternField(item, attempt, phase) {
 
 function renderStudentChunks(item, attempt, phase) {
   if (!attempt.chunks?.length) {
-    return el("p", { class: "warning" }, "まず / で区切って「区切りから表を作る」を押してください。");
+    return el("p", { class: "warning" }, "まず / で区切って「区切りごとに S/V/O… を割り当てる」を押してください。");
   }
   return el("div", { class: "chunkRows" },
     ...attempt.chunks.map((chunk, index) => el("div", { class: "chunkRow" },
@@ -477,7 +517,7 @@ function renderStudentChunks(item, attempt, phase) {
           render();
         },
       },
-      el("option", { value: "" }, "Role"),
+      el("option", { value: "" }, "文の要素"),
       ...ROLES.map((role) => el("option", { value: role, selected: chunk.role === role ? "selected" : null }, role))
       ),
       el("input", {
@@ -561,7 +601,7 @@ function renderExplanation(item) {
           saveProgress();
           render();
         },
-      }, "復習対象にする")
+      }, "復習リストに入れる（後でもう一度出る）")
     )
   );
 }
@@ -604,6 +644,7 @@ function renderCompare(item) {
         },
       }, "解説へ進む"),
       el("button", {
+        class: "secondary",
         type: "button",
         onclick: () => {
           state.step = "first";
@@ -611,7 +652,7 @@ function renderCompare(item) {
           saveProgress();
           render();
         },
-      }, "もう一度やる"),
+      }, "Step 1に戻ってやり直す"),
       el("button", {
         class: "ghost",
         type: "button",
@@ -620,7 +661,7 @@ function renderCompare(item) {
           saveProgress();
           render();
         },
-      }, "復習対象にする")
+      }, "復習リストに入れる（後でもう一度出る）")
     )
   );
 }
@@ -636,6 +677,7 @@ function compareBox(title, attempt) {
 function renderEditor() {
   const view = $("#editorView");
   view.innerHTML = "";
+  const studentLabel = state.studentName.trim() || DEFAULT_STUDENT;
   view.appendChild(el("section", { class: "panel editorGrid" },
     el("div", { class: "jsonArea" },
       el("h2", {}, "教材JSON"),
@@ -648,6 +690,18 @@ function renderEditor() {
         el("button", { type: "button", onclick: loadEditorJson }, "このJSONを読み込む"),
         el("button", { class: "ghost", type: "button", onclick: downloadEditorJson }, "教材JSON保存"),
         el("button", { class: "ghost", type: "button", onclick: addBlankItem }, "空の項目を追加")
+      ),
+      el("div", { class: "actions", style: "margin-top:24px" },
+        el("button", {
+          class: "danger",
+          type: "button",
+          onclick: () => {
+            if (!confirm(`「${studentLabel}」の学習進捗を全て削除しますか？この操作は元に戻せません。`)) return;
+            state.progress = defaultProgress();
+            saveProgress();
+            render();
+          },
+        }, `この生徒（${studentLabel}）の進捗を全消去`)
       )
     ),
     el("aside", { class: "preview" },
