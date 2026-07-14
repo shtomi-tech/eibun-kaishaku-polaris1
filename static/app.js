@@ -1,6 +1,17 @@
 "use strict";
 
 const ROLES = ["S", "V", "O", "C", "M", "仮S", "真S", "仮O", "真O"];
+const ROLE_LABELS = {
+  S: "S（主語）",
+  V: "V（動詞）",
+  O: "O（目的語）",
+  C: "C（補語）",
+  M: "M（修飾語）",
+  "仮S": "仮S（形式主語）",
+  "真S": "真S（真主語）",
+  "仮O": "仮O（形式目的語）",
+  "真O": "真O（真目的語）",
+};
 const PATTERNS = ["SV", "SVC", "SVO", "SVOO", "SVOC", "special"];
 const PATTERN_LABELS = {
   SV: "第1文型 SV",
@@ -8,12 +19,12 @@ const PATTERN_LABELS = {
   SVO: "第3文型 SVO",
   SVOO: "第4文型 SVOO",
   SVOC: "第5文型 SVOC",
-  special: "その他・特殊構文",
+  special: "その他・特殊構文（第1〜5文型以外）",
 };
 const STEPS = [
-  ["first", "1 自分で解く"],
-  ["compare", "2 答え合わせ"],
-  ["input", "3 解説を読む"],
+  ["first", "1 英文を分析"],
+  ["compare", "2 正解と比較"],
+  ["input", "3 解説を確認"],
 ];
 const STEP_LABELS = Object.fromEntries(STEPS);
 const STORE_PREFIX = "polaris_reading_mvp_v1";
@@ -234,9 +245,24 @@ function renderLearn() {
   view.appendChild(renderStartCta());
   view.appendChild(renderControls());
   view.appendChild(el("div", { class: "shell" },
-    el("aside", {}, renderSummary(), renderItemList()),
-    el("section", { class: "panel workspace" }, item ? renderWorkspace(item) : renderEmpty())
+    el("aside", {},
+      renderSummary(),
+      el("details", { class: "itemPicker", open: window.innerWidth > 900 ? "open" : null },
+        el("summary", {}, "ほかの問題を選ぶ"),
+        renderItemList()
+      )
+    ),
+    el("section", { class: "panel workspace", id: "workspace", tabindex: "-1" }, item ? renderWorkspace(item) : renderEmpty())
   ));
+}
+
+function focusWorkspace() {
+  requestAnimationFrame(() => {
+    const workspace = document.querySelector("#workspace");
+    if (!workspace) return;
+    workspace.scrollIntoView({ behavior: "smooth", block: "start" });
+    workspace.focus({ preventScroll: true });
+  });
 }
 
 function recommendedTarget() {
@@ -279,6 +305,7 @@ function renderStartCta() {
         state.progress.lastItemId = target.item.id;
         saveProgress();
         render();
+        focusWorkspace();
       },
     }, title),
     el("p", { class: "hint" }, `${STEP_LABELS[target.step]} から再開します`)
@@ -288,7 +315,7 @@ function renderStartCta() {
 function renderControls() {
   const studentInput = el("input", {
     value: state.studentName,
-    placeholder: "未入力なら default",
+    placeholder: "未入力の場合は「default」で保存",
     oninput: (event) => {
       state.studentName = event.target.value;
       localStorage.setItem("polaris_reading_student", state.studentName);
@@ -398,6 +425,7 @@ function renderStepNav(item) {
   return el("div", { class: "stepNav" },
     ...STEPS.map(([id, label]) => el("button", {
       class: id === state.step ? "active" : "ghost",
+      "aria-current": id === state.step ? "step" : null,
       type: "button",
       onclick: () => {
         state.step = id;
@@ -440,7 +468,7 @@ function renderAttempt(item, phase, title) {
           updateAttempt(item.id, phase, latest);
           render();
         },
-      }, "区切りごとに S/V/O… を割り当てる")
+      }, "区切った部分を分析する")
     ),
     renderStudentChunks(item, attempt, phase),
     renderPatternField(item, attempt, phase),
@@ -470,8 +498,8 @@ function renderNextAction(item, answer, attempt, phase) {
         saveProgress();
         render();
       },
-    }, "比較へ進む"),
-    ready ? null : el("span", { class: "hint" }, "文の要素と文型を入力すると進めます")
+    }, "自分の分析と正解を比べる"),
+    ready ? null : el("span", { class: "hint" }, "英文を区切り、文の要素と文型を入力すると進めます")
   );
 }
 
@@ -495,7 +523,7 @@ function renderPatternField(item, attempt, phase) {
 
 function renderStudentChunks(item, attempt, phase) {
   if (!attempt.chunks?.length) {
-    return el("p", { class: "warning" }, "まず / で区切って「区切りごとに S/V/O… を割り当てる」を押してください。");
+    return el("p", { class: "warning" }, "① 意味のまとまりに / を入れる　②「区切った部分を分析する」を押す");
   }
   return el("div", { class: "chunkRows" },
     ...attempt.chunks.map((chunk, index) => el("div", { class: "chunkRow" },
@@ -518,7 +546,7 @@ function renderStudentChunks(item, attempt, phase) {
         },
       },
       el("option", { value: "" }, "文の要素"),
-      ...ROLES.map((role) => el("option", { value: role, selected: chunk.role === role ? "selected" : null }, role))
+      ...ROLES.map((role) => el("option", { value: role, selected: chunk.role === role ? "selected" : null }, ROLE_LABELS[role]))
       ),
       el("input", {
         value: chunk.translation || "",
@@ -601,7 +629,7 @@ function renderExplanation(item) {
           saveProgress();
           render();
         },
-      }, "復習リストに入れる（後でもう一度出る）")
+      }, "あとで復習する")
     )
   );
 }
@@ -661,7 +689,7 @@ function renderCompare(item) {
           saveProgress();
           render();
         },
-      }, "復習リストに入れる（後でもう一度出る）")
+      }, "あとで復習する")
     )
   );
 }
@@ -691,7 +719,7 @@ function renderEditor() {
         el("button", { class: "ghost", type: "button", onclick: downloadEditorJson }, "教材JSON保存"),
         el("button", { class: "ghost", type: "button", onclick: addBlankItem }, "空の項目を追加")
       ),
-      el("div", { class: "actions", style: "margin-top:24px" },
+      el("div", { class: "actions destructiveActions" },
         el("button", {
           class: "danger",
           type: "button",
