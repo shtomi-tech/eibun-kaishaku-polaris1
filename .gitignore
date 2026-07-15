@@ -1,0 +1,2 @@
+# 設定（Supabaseキー等・デプロイ時に環境変数から生成する）
+static/config.json

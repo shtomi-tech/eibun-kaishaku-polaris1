@@ -40,7 +40,10 @@ const state = {
   step: "first",
   progress: defaultProgress(),
   editorJson: "",
+  cloudStatus: { message: "", tone: "" },
 };
+
+let cloud = null; // harness createCloud のインスタンス（config無しなら no-op）
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -87,9 +90,16 @@ function emptyAttempt() {
   };
 }
 
-function studentKey() {
-  const name = state.studentName.trim() || DEFAULT_STUDENT;
-  return `${STORE_PREFIX}::${state.datasetId}::${name}`;
+function cloudStudentName() {
+  return cloud && cloud.isEnabled() ? cloud.getSession().student.name : "";
+}
+
+function activeStudentName() {
+  return cloudStudentName() || state.studentName.trim() || DEFAULT_STUDENT;
+}
+
+function studentKey(datasetId = state.datasetId) {
+  return `${STORE_PREFIX}::${datasetId}::${activeStudentName()}`;
 }
 
 function loadProgress() {
@@ -111,6 +121,42 @@ function loadProgress() {
 
 function saveProgress() {
   localStorage.setItem(studentKey(), JSON.stringify(state.progress));
+  if (cloud) cloud.queueSave();
+}
+
+/* ============================================================
+   cloud sync（生徒別・共有URL ?s=&t=）— harness/cloud.js を利用
+   共通スキーマ app_students / app_progress（app="eibun-kaishaku-polaris1"）。
+   config.json が無ければ no-op で、従来どおり匿名ローカル動作（無回帰）。
+   このアプリはデータセット単位で進捗を分けているため、1回の保存で
+   全データセット分の進捗を { version, datasets: { <datasetId>: progress } } にまとめて送る。
+   ============================================================ */
+function cloudGetPayload() {
+  const datasets = {};
+  for (const info of state.manifest.datasets || []) {
+    try {
+      const raw = localStorage.getItem(studentKey(info.id));
+      if (raw) datasets[info.id] = JSON.parse(raw);
+    } catch {
+      // 破損データは送らない
+    }
+  }
+  return { version: 1, datasets };
+}
+
+function cloudApplyLoaded(payload) {
+  const datasets = payload && typeof payload === "object" ? payload.datasets : null;
+  if (!datasets || typeof datasets !== "object") return;
+  for (const [datasetId, progress] of Object.entries(datasets)) {
+    if (progress && typeof progress === "object") {
+      localStorage.setItem(studentKey(datasetId), JSON.stringify(progress));
+    }
+  }
+}
+
+function cloudOnStatus(message, tone) {
+  state.cloudStatus = { message: message || "", tone: tone || "" };
+  render();
 }
 
 function answerFor(itemId) {
@@ -201,6 +247,15 @@ function updateAttempt(itemId, phase, patch) {
 async function loadApp() {
   state.manifest = await fetch("data/manifest.json", { cache: "no-store" }).then((r) => r.json());
   state.datasetId = state.manifest.datasets[0]?.id || "";
+
+  cloud = createCloud({
+    appId: "eibun-kaishaku-polaris1",
+    getPayload: cloudGetPayload,
+    applyLoaded: cloudApplyLoaded,
+    onStatus: cloudOnStatus,
+  });
+  await cloud.init();
+
   await loadDataset(state.datasetId);
   bindShell();
   render();
@@ -313,9 +368,11 @@ function renderStartCta() {
 }
 
 function renderControls() {
+  const sharedMode = !!(cloud && cloud.isEnabled());
   const studentInput = el("input", {
-    value: state.studentName,
+    value: sharedMode ? cloudStudentName() : state.studentName,
     placeholder: "未入力の場合は「default」で保存",
+    disabled: sharedMode ? "disabled" : null,
     oninput: (event) => {
       state.studentName = event.target.value;
       localStorage.setItem("polaris_reading_student", state.studentName);
@@ -339,7 +396,12 @@ function renderControls() {
     fields.unshift(field("教材", datasetSelect));
   }
 
-  return el("section", { class: "panel controls" }, ...fields);
+  const nodes = [...fields];
+  if (state.cloudStatus.message) {
+    nodes.push(el("p", { class: `hint cloudStatus ${state.cloudStatus.tone || ""}` }, state.cloudStatus.message));
+  }
+
+  return el("section", { class: "panel controls" }, ...nodes);
 }
 
 function field(label, control) {
