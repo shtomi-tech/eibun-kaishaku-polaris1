@@ -624,6 +624,100 @@
           "importance は important と同じ意味で C になっていると理解する"
         ]
       }
+    },
+    {
+      "id": "polaris1_theme09_point01",
+      "theme": "THEME 9",
+      "themeTitle": "形容詞句（不定詞の形容詞的用法）",
+      "pointNo": 1,
+      "pointTitle": "名詞を修飾する不定詞の形容詞的用法",
+      "sentence": "There are plans to build a new sports center near the station.",
+      "pattern": "SV",
+      "root": {
+        "chunks": [
+          { "text": "There", "role": "M", "translation": "（形式的な語）" },
+          { "text": "are", "role": "V", "translation": "ある" },
+          { "text": "plans to build a new sports center near the station", "role": "S", "translation": "駅の近くに新しいスポーツセンターを建てる計画が" }
+        ]
+      },
+      "explanation": {
+        "analysis": "There is 構文なので、are の直後にある plans が S になる。to build 以下はその名詞 plans を後ろから修飾する形容詞句で、plans [to build ...] という大きな名詞のかたまりをつくっている。There is 構文は厳密には第1文型の倒置だが、文型の枠組みにこだわりすぎる必要はない。",
+        "guidance": "名詞の直後の to do を見たら、その名詞を修飾する形容詞的用法を考える。動詞 plan は plan to 原形「〜することを計画する」の形を取るが、名詞 plan になっても plan to 〜「〜する計画」と、to との相性のよさは変わらない。",
+        "translationExample": "駅の近くに新しいスポーツセンターを建てる計画がある。",
+        "vocab": [
+          { "term": "plan", "meaning": "計画" },
+          { "term": "build", "meaning": "建てる" },
+          { "term": "near", "meaning": "〜の近くに" }
+        ],
+        "checkpoints": [
+          "抽象名詞 + to 〜 が形容詞句になることを確認する",
+          "plan to 〜 は動詞「〜することを計画する」と名詞「〜する計画」があると確認する",
+          "There is 構文では be動詞の直後の名詞が S になることを確認する"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme10_point01",
+      "theme": "THEME 10",
+      "themeTitle": "形容詞句（名詞修飾の分詞）",
+      "pointNo": 1,
+      "pointTitle": "名詞を修飾する現在分詞",
+      "sentence": "The team developing the new app has announced that the release will be delayed.",
+      "pattern": "SVO",
+      "root": {
+        "chunks": [
+          { "text": "The team developing the new app", "role": "S", "translation": "新しいアプリを開発しているチームは" },
+          { "text": "has announced", "role": "V", "translation": "発表した" },
+          { "text": "that the release will be delayed", "role": "O", "translation": "リリースが遅れると" }
+        ]
+      },
+      "explanation": {
+        "analysis": "developing the new app は直前の The team を修飾する現在分詞のかたまり。動名詞と考えると名詞が連続してしまうので、動詞 develop が分詞として形容詞の働きをしていると判断する。The team developing 〜 の後に V が来ることを予測して、has announced が V だとわかる。",
+        "guidance": "名詞の直後の -ing を見たら、すぐに動名詞と決めず、その名詞を修飾する分詞の可能性を考える。S のかたまりを大きく取り、後ろに V が来るのを待って文全体の構造を確定させる。",
+        "translationExample": "新しいアプリを開発しているチームが、リリースは遅れると発表した。",
+        "vocab": [
+          { "term": "develop", "meaning": "開発する" },
+          { "term": "announce", "meaning": "発表する" },
+          { "term": "delay", "meaning": "遅らせる" }
+        ],
+        "checkpoints": [
+          "名詞を修飾する -ing は分詞だと確認する（動名詞と区別）",
+          "名詞 + -ing 〜 の後に V が来ることを予測して読む",
+          "分詞のかたまりを含めた大きな S を取れることを確認する"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme10_point02",
+      "theme": "THEME 10",
+      "themeTitle": "形容詞句（名詞修飾の分詞）",
+      "pointNo": 2,
+      "pointTitle": "名詞を修飾する過去分詞",
+      "sentence": "A student named Kenta helped me find the science room.",
+      "pattern": "SVOC",
+      "root": {
+        "chunks": [
+          { "text": "A student named Kenta", "role": "S", "translation": "ケンタという名前の生徒が" },
+          { "text": "helped", "role": "V", "translation": "手伝ってくれた" },
+          { "text": "me", "role": "O", "translation": "私が" },
+          { "text": "find the science room", "role": "C", "translation": "理科室を見つけるのを" }
+        ]
+      },
+      "explanation": {
+        "analysis": "A student named Kenta の時点では「ある生徒がケンタを名づけた」と過去形で解釈できてしまうが、次の helped を見つけた瞬間に発想を変える。helped が V なので A student named Kenta が S になり、named Kenta は直前の A student を修飾する過去分詞とわかる（name OC「OをCと名づける」が過去分詞になり named C「Cと名づけられた」になった）。",
+        "guidance": "-ed の形は過去形と過去分詞の両方の可能性がある。後ろに本物の V が現れたら、-ed は名詞を修飾する過去分詞だったと読み直す。なお「helped が Kenta を修飾するのでは？」という発想はナシ。固有名詞が修飾語を伴うことは原則ないからである。",
+        "translationExample": "ケンタという名前の生徒が、私が理科室を見つけるのを手伝ってくれた。",
+        "vocab": [
+          { "term": "name", "meaning": "名づける" },
+          { "term": "help O 原形", "meaning": "Oが〜するのを手伝う" },
+          { "term": "science room", "meaning": "理科室" }
+        ],
+        "checkpoints": [
+          "名詞を修飾する -ed は分詞だと確認する（過去形と区別）",
+          "本物の V を見つけた瞬間に -ed を過去分詞と読み直せる",
+          "固有名詞は原則として修飾語を伴わないことを確認する"
+        ]
+      }
     }
   ]
 }
