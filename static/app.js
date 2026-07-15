@@ -257,12 +257,12 @@ function renderLearn() {
 }
 
 function focusWorkspace() {
-  requestAnimationFrame(() => {
+  setTimeout(() => {
     const workspace = document.querySelector("#workspace");
     if (!workspace) return;
-    workspace.scrollIntoView({ behavior: "smooth", block: "start" });
+    workspace.scrollIntoView({ behavior: "auto", block: "start" });
     workspace.focus({ preventScroll: true });
-  });
+  }, 0);
 }
 
 function recommendedTarget() {
@@ -618,6 +618,7 @@ function renderExplanation(item) {
           }
           saveProgress();
           render();
+          if (nextItem) focusWorkspace();
         },
       }, nextItem ? "次の問題へ" : "この教材を完了"),
       ready ? null : el("span", { class: "hint" }, "チェックポイントを確認すると進めます"),
