@@ -718,6 +718,230 @@
           "固有名詞は原則として修飾語を伴わないことを確認する"
         ]
       }
+    },
+    {
+      "id": "polaris1_theme11_point01",
+      "theme": "THEME 11",
+      "themeTitle": "形容詞節（関係詞）",
+      "pointNo": 1,
+      "pointTitle": "形容詞節をつくる関係代名詞",
+      "sentence": "The poster that the students designed for the festival won first prize.",
+      "pattern": "SVO",
+      "root": {
+        "chunks": [
+          { "text": "The poster that the students designed for the festival", "role": "S", "translation": "生徒たちが文化祭のためにデザインしたポスターは" },
+          { "text": "won", "role": "V", "translation": "獲得した" },
+          { "text": "first prize", "role": "O", "translation": "最優秀賞を" }
+        ]
+      },
+      "explanation": {
+        "analysis": "that the students designed for the festival は、直前の名詞 The poster を修飾する形容詞節。この that は関係代名詞で、節の中では designed の O が欠けた「不完全」な形になっている。The poster [that ...] 全体が大きな S になり、won が文全体の V である。",
+        "guidance": "名詞の直後の that を見たら、関係代名詞（形容詞節をつくる）ではないかと考え、後ろが「不完全」であることを確認する。ここでは design の O が欠けている。関係代名詞は形容詞節をつくるのが基本。",
+        "translationExample": "生徒たちが文化祭のためにデザインしたポスターは、最優秀賞を獲得した。",
+        "vocab": [
+          { "term": "design", "meaning": "デザインする" },
+          { "term": "festival", "meaning": "文化祭、祭り" },
+          { "term": "first prize", "meaning": "最優秀賞、1等賞" }
+        ],
+        "checkpoints": [
+          "関係代名詞が形容詞節をつくることを確認する",
+          "関係代名詞の後ろは「不完全」な形になることを確認する",
+          "関係詞節を含めた大きな S を取れることを確認する"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme11_point02",
+      "theme": "THEME 11",
+      "themeTitle": "形容詞節（関係詞）",
+      "pointNo": 2,
+      "pointTitle": "形容詞節をつくる関係副詞",
+      "sentence": "Mika told us the reason why she joined the volunteer club.",
+      "pattern": "SVOO",
+      "root": {
+        "chunks": [
+          { "text": "Mika", "role": "S", "translation": "ミカは" },
+          { "text": "told", "role": "V", "translation": "話した" },
+          { "text": "us", "role": "O", "translation": "私たちに" },
+          { "text": "the reason why she joined the volunteer club", "role": "O", "translation": "彼女がボランティア部に入った理由を" }
+        ]
+      },
+      "explanation": {
+        "analysis": "why she joined the volunteer club は、関係副詞 why がつくる形容詞節で、直前の the reason を修飾している。tell 人 物 の 物 にあたる O が、the reason [why ...] という大きな名詞のかたまりになっている。",
+        "guidance": "the reason why を見たら、関係副詞 why がつくる形容詞節が直前の the reason を修飾していると考える。関係代名詞と違い、関係副詞の後ろは「完全」な形がくる。関係代名詞も関係副詞も「形容詞節をつくる」のが基本。",
+        "translationExample": "ミカは、彼女がボランティア部に入った理由を私たちに話した。",
+        "vocab": [
+          { "term": "reason", "meaning": "理由" },
+          { "term": "join", "meaning": "入る、参加する" },
+          { "term": "volunteer", "meaning": "ボランティア" }
+        ],
+        "checkpoints": [
+          "関係副詞が形容詞節をつくることを確認する",
+          "関係副詞の後ろは「完全」な形がくることを確認する",
+          "tell 人 物 の 物 が関係詞節を含む大きなかたまりになっていると判断する"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme11_point03",
+      "theme": "THEME 11",
+      "themeTitle": "形容詞節（関係詞）",
+      "pointNo": 3,
+      "pointTitle": "形容詞節をつくる前置詞＋関係代名詞",
+      "sentence": "This is the park in which we first met.",
+      "pattern": "SVC",
+      "root": {
+        "chunks": [
+          { "text": "This", "role": "S", "translation": "ここは" },
+          { "text": "is", "role": "V", "translation": "である" },
+          { "text": "the park in which we first met", "role": "C", "translation": "私たちが初めて出会った公園" }
+        ]
+      },
+      "explanation": {
+        "analysis": "in which we first met は前置詞＋関係代名詞のかたまりで、直前の the park を修飾する形容詞節をつくっている。前置詞＋関係代名詞の後ろには「完全」な形がくる。",
+        "guidance": "in which のような前置詞＋関係代名詞を見たら、形容詞節をつくると考える。前置詞を後ろに置いた This is the park which we first met in. の形も可能で、その場合は後ろに「不完全」な形がくる。",
+        "translationExample": "ここは、私たちが初めて出会った公園です。",
+        "vocab": [
+          { "term": "park", "meaning": "公園" },
+          { "term": "first", "meaning": "初めて" },
+          { "term": "meet", "meaning": "出会う" }
+        ],
+        "checkpoints": [
+          "前置詞＋関係代名詞も形容詞節をつくることを確認する",
+          "前置詞＋関係代名詞の後ろは「完全」な形がくることを確認する",
+          "前置詞を後ろに置いた形では後ろが「不完全」になることを確認する"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme11_point04",
+      "theme": "THEME 11",
+      "themeTitle": "形容詞節（関係詞）",
+      "pointNo": 4,
+      "pointTitle": "\"名詞＋SV\" は関係詞の省略",
+      "sentence": "Satoshi became a doctor many people in the town rely on.",
+      "pattern": "SVC",
+      "root": {
+        "chunks": [
+          { "text": "Satoshi", "role": "S", "translation": "サトシは" },
+          { "text": "became", "role": "V", "translation": "なった" },
+          { "text": "a doctor many people in the town rely on", "role": "C", "translation": "町の多くの人々が頼りにする医師に" }
+        ]
+      },
+      "explanation": {
+        "analysis": "a doctor many people という名詞の連続に注意する。\"名詞＋SV\" の形なので、SV の直前に関係代名詞 that が省略されている。節の中では rely on の O がない「不完全」な状態で、that many people in the town rely on が直前の a doctor を修飾している。",
+        "guidance": "名詞が連続する部分には注意が必要。\"名詞＋SV\" の形であれば、SV の直前に関係詞が省略されていると考える。省略された関係詞の節の中は「不完全」な形になっている。",
+        "translationExample": "サトシは、町の多くの人々が頼りにする医師になった。",
+        "vocab": [
+          { "term": "rely on 〜", "meaning": "〜を頼りにする" },
+          { "term": "town", "meaning": "町" },
+          { "term": "doctor", "meaning": "医師" }
+        ],
+        "checkpoints": [
+          "\"名詞＋SV\" は関係詞の省略だと確認する",
+          "省略された関係詞の節の中は「不完全」な形になることを確認する",
+          "名詞の連続に注意して読むことを確認する"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme12_point01",
+      "theme": "THEME 12",
+      "themeTitle": "副詞句（前置詞・不定詞の副詞的用法・分詞構文）",
+      "pointNo": 1,
+      "pointTitle": "形容詞句や副詞句になる前置詞句",
+      "sentence": "Emi took the bus for the museum and got off at the third stop.",
+      "pattern": "SVO",
+      "root": {
+        "chunks": [
+          { "text": "Emi", "role": "S", "translation": "エミは" },
+          { "text": "took", "role": "V", "translation": "乗った" },
+          { "text": "the bus for the museum", "role": "O", "translation": "博物館行きのバスに" },
+          { "text": "and", "role": "接", "translation": "そして" },
+          { "text": "got off", "role": "V", "translation": "降りた" },
+          { "text": "at the third stop", "role": "M", "translation": "3つ目の停留所で" }
+        ]
+      },
+      "explanation": {
+        "analysis": "前置詞のカタマリは形容詞句か副詞句になる。この文では、for the museum は直前の名詞 the bus を修飾する形容詞句、at the third stop は動詞 got off を修飾する副詞句である。同じ前置詞句でも働きが違うことに注意する。and は等位接続詞で、took と got off という2つの V を対等につないでいる。",
+        "guidance": "前置詞句を見たら、名詞を修飾する形容詞句か、動詞などを修飾する副詞句かを判断する。名詞の直後にあるときは、まず形容詞句の可能性を考える。and を見たら「何と何をつないでいるか」を確認する。ここでは V と V を結んでいるので、S は共通の Emi である。",
+        "translationExample": "エミは博物館行きのバスに乗って、3つ目の停留所で降りた。",
+        "vocab": [
+          { "term": "take", "meaning": "（乗り物に）乗る" },
+          { "term": "get off", "meaning": "（電車・バスなどから）降りる" },
+          { "term": "stop", "meaning": "停留所" }
+        ],
+        "checkpoints": [
+          "前置詞句は形容詞句か副詞句になることを確認する",
+          "for the museum は名詞を修飾する形容詞句と判断する",
+          "at the third stop は動詞を修飾する副詞句と判断する",
+          "等位接続詞 and が何と何をつないでいるか（V と V）を確認する"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme12_point02",
+      "theme": "THEME 12",
+      "themeTitle": "副詞句（前置詞・不定詞の副詞的用法・分詞構文）",
+      "pointNo": 2,
+      "pointTitle": "文頭にきて動詞を修飾する to 〜",
+      "sentence": "To catch the first train, Ken got up at five.",
+      "pattern": "SV",
+      "root": {
+        "chunks": [
+          { "text": "To catch the first train", "role": "M", "translation": "始発電車に間に合うように" },
+          { "text": "Ken", "role": "S", "translation": "ケンは" },
+          { "text": "got up", "role": "V", "translation": "起きた" },
+          { "text": "at five", "role": "M", "translation": "5時に" }
+        ]
+      },
+      "explanation": {
+        "analysis": "文頭の To catch the first train の後ろに SV（Ken got up）があるので、この to 〜 は S にならない余分なカタマリ→副詞的用法と判断する。意味の面でも「間に合うために起きた」と動詞を修飾している。",
+        "guidance": "\"To 〜, SV\" の形は副詞的用法。\"To 〜 V\" のように to のカタマリの直後に V が来れば名詞的用法（THEME 1）だった。文頭の to 〜 を見たら、後ろに SV があるかどうかで判断する。",
+        "translationExample": "始発電車に間に合うように、ケンは5時に起きた。",
+        "vocab": [
+          { "term": "catch", "meaning": "間に合う、つかまえる" },
+          { "term": "first train", "meaning": "始発電車" },
+          { "term": "get up", "meaning": "起きる" }
+        ],
+        "checkpoints": [
+          "\"To 〜, SV\" の形は不定詞の副詞的用法と確認する",
+          "文頭の to 〜 が S になっていないことを確認する",
+          "副詞句は文構造上なくてもよい要素だと確認する"
+        ]
+      }
+    },
+    {
+      "id": "polaris1_theme12_point03",
+      "theme": "THEME 12",
+      "themeTitle": "副詞句（前置詞・不定詞の副詞的用法・分詞構文）",
+      "pointNo": 3,
+      "pointTitle": "動詞を修飾する分詞構文",
+      "sentence": "Hearing the announcement, the passengers moved to Platform 3.",
+      "pattern": "SV",
+      "root": {
+        "chunks": [
+          { "text": "Hearing the announcement", "role": "M", "translation": "アナウンスを聞いて" },
+          { "text": "the passengers", "role": "S", "translation": "乗客たちは" },
+          { "text": "moved", "role": "V", "translation": "移動した" },
+          { "text": "to Platform 3", "role": "M", "translation": "3番ホームへ" }
+        ]
+      },
+      "explanation": {
+        "analysis": "文頭の Hearing 〜 の後ろに SV（the passengers moved）があるので、Hearing のカタマリは文構造上不要な要素→副詞のカタマリだと判断できる（-ing 〜, SV の形）。副詞のカタマリをつくる -ing は分詞構文で、動詞 moved を修飾している。",
+        "guidance": "\"-ing 〜, SV\" の形は分詞構文。\"-ing is 〜\" のように -ing が S になっていれば、その -ing は動名詞だった（THEME 2）。訳は「〜して」「〜なので」くらいでよく、今は「分詞構文だと認識できること」自体が大事。",
+        "translationExample": "アナウンスを聞いて、乗客たちは3番ホームへ移動した。",
+        "vocab": [
+          { "term": "announcement", "meaning": "アナウンス、案内放送" },
+          { "term": "passenger", "meaning": "乗客" },
+          { "term": "platform", "meaning": "（駅の）ホーム" }
+        ],
+        "checkpoints": [
+          "\"-ing 〜, SV\" の形は分詞構文と確認する",
+          "-ing が S になる動名詞と区別する",
+          "分詞構文は動詞を修飾する副詞のカタマリだと確認する"
+        ]
+      }
     }
   ]
 }
